@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Practice Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      #text {
+        font-size: 24px;
+      }
+      #input {
+        font-size: 24px;
+        width: 80%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Typing Practice Game</h1>
+    <div id="text"></div>
+    <input type="text" id="input" placeholder="Start typing..." />
+    <script>
+      const textArray = [
+        'The quick brown fox jumps over the lazy dog.',
+        'Hello, world!',
+        'JavaScript is fun!',
+      ];
+      let currentText = '';
+      let startTime = null;
+
+      function getRandomText() {
+        return textArray[Math.floor(Math.random() * textArray.length)];
+      }
+
+      function startGame() {
+        currentText = getRandomText();
+        document.getElementById('text').textContent = currentText;
+        document.getElementById('input').value = '';
+        document.getElementById('input').focus();
+        startTime = new Date();
+      }
+
+      document.getElementById('input').addEventListener('input', (event) => {
+        if (event.target.value === currentText) {
+          const endTime = new Date();
+          const timeTaken = (endTime - startTime) / 1000;
+          alert(`You typed the text in ${timeTaken} seconds!`);
+          startGame();
+        }
+      });
+
+      startGame();
+    </script>
+  </body>
+</html>

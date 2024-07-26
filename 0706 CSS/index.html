@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Styled Button</title>
+    <style>
+      .btn02 {
+        padding: 10px 20px;
+        background: #e45b54;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+        zoom: 1;
+        transition: 0.3s linear;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="birthdayButton" class="btn02">Click me!</button>
+    <script>
+      const birthdayButton = document.getElementById('birthdayButton');
+
+      function updateName() {
+        let name = prompt('输入你的生日');
+        birthdayButton.textContent = '你的生日: ' + name;
+      }
+      if (birthdayButton) {
+        birthdayButton.addEventListener('click', updateName);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>生日个性分析游戏</title>
+    <style>
+      .btn02 {
+        padding: 10px 20px;
+        background: #e45b54;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+        zoom: 1;
+        transition: 0.3s linear;
+      }
+      .result {
+        margin-top: 20px;
+        font-size: 1.2em;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="birthdayButton" class="btn02">输入你的生日</button>
+    <div id="result" class="result"></div>
+    <script>
+      const birthdayButton = document.getElementById('birthdayButton');
+      const resultDiv = document.getElementById('result');
+
+      function getPersonality(month) {
+        const personalities = {
+          '01': '你是一个充满活力和创新精神的人，总是充满激情和冒险精神。',
+          '02': '你是一个善良和同情心的人，乐于帮助他人，富有同情心。',
+          '03': '你是一个聪明和机智的人，思维敏捷，善于解决问题。',
+          '04': '你是一个踏实和可靠的人，勤奋努力，责任心强。',
+          '05': '你是一个充满魅力和自信的人，社交能力强，朋友众多。',
+          '06': '你是一个富有想象力和创造力的人，喜欢艺术和美。',
+          '07': '你是一个深思熟虑和内省的人，喜欢探索内心世界。',
+          '08': '你是一个自律和有计划的人，目标明确，执行力强。',
+          '09': '你是一个智慧和冷静的人，善于分析和思考。',
+          10: '你是一个外向和乐观的人，喜欢结交新朋友，生活充满活力。',
+          11: '你是一个独立和坚强的人，勇敢面对挑战，不轻易放弃。',
+          12: '你是一个乐观和幽默的人，充满正能量，喜欢带给别人快乐。',
+        };
+        return personalities[month] || '无法识别的月份，请重新输入生日。';
+      }
+
+      function updateName() {
+        let name = prompt('输入你的生日 (格式: YYYY-MM-DD)');
+        const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+
+        if (!datePattern.test(name)) {
+          alert('请重新输入正确的日期格式 (YYYY-MM-DD)');
+          return;
+        }
+
+        const month = name.split('-')[1];
+        const personality = getPersonality(month);
+
+        if (month === '06') {
+          alert('恭喜您得奖!');
+        }
+
+        birthdayButton.textContent = '你的生日: ' + name;
+        resultDiv.textContent = '个性分析: ' + personality;
+      }
+
+      if (birthdayButton) {
+        birthdayButton.addEventListener('click', updateName);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Card Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 100px);
+        grid-gap: 10px;
+        justify-content: center;
+      }
+      .card {
+        width: 100px;
+        height: 100px;
+        background-color: #ddd;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+      }
+      .flipped {
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Memory Card Game</h1>
+    <div class="grid" id="grid"></div>
+    <script>
+      const cardsArray = ['A', 'B', 'C', 'D', 'A', 'B', 'C', 'D'];
+      let firstCard = null;
+      let secondCard = null;
+      let matchedPairs = 0;
+
+      function shuffle(array) {
+        array.sort(() => 0.5 - Math.random());
+      }
+
+      function createCard(letter) {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.letter = letter;
+        card.addEventListener('click', flipCard);
+        return card;
+      }
+
+      function flipCard() {
+        if (this === firstCard) return;
+        this.classList.add('flipped');
+        this.textContent = this.dataset.letter;
+
+        if (!firstCard) {
+          firstCard = this;
+          return;
+        }
+
+        secondCard = this;
+
+        if (firstCard.dataset.letter === secondCard.dataset.letter) {
+          matchedPairs++;
+          resetCards();
+          if (matchedPairs === cardsArray.length / 2) {
+            setTimeout(() => alert('You win!'), 500);
+          }
+        } else {
+          setTimeout(unflipCards, 1000);
+        }
+      }
+
+      function unflipCards() {
+        firstCard.classList.remove('flipped');
+        secondCard.classList.remove('flipped');
+        firstCard.textContent = '';
+        secondCard.textContent = '';
+        resetCards();
+      }
+
+      function resetCards() {
+        firstCard = null;
+        secondCard = null;
+      }
+
+      function init() {
+        shuffle(cardsArray);
+        const grid = document.getElementById('grid');
+        cardsArray.forEach((letter) => grid.appendChild(createCard(letter)));
+      }
+
+      init();
+    </script>
+  </body>
+</html>

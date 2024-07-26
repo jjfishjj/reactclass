@@ -1,0 +1,12 @@
+element.addEventListener(event, function, useCapture)
+
+<div id="block">我是要被操作的物件區塊</div>
+
+<script>
+  var block = document.getElementById('block');
+  block.addEventListener('click', myFunction);
+
+  function myFunction() {
+    block.innerHTML = 'Hello World';
+  }
+</script>

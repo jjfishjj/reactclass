@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axios Interceptors Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- 引入 Axios 庫 -->
+  </head>
+  <body>
+    <h1>Axios Interceptors Example</h1>
+    <button id="fetchData">Fetch Data with Interceptor</button>
+    <!-- 按鈕，用於觸發API請求 -->
+    <pre id="output"></pre>
+    <!-- 用於顯示API返回的數據 -->
+
+    <script>
+      // 設置請求攔截器
+      axios.interceptors.request.use(
+        function (config) {
+          // 在發送請求之前做些什麼
+          console.log('Request Interceptor:', config);
+          config.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // 添加Authorization頭
+          return config;
+        },
+        function (error) {
+          // 處理請求錯誤
+          return Promise.reject(error);
+        },
+      );
+
+      // 設置響應攔截器
+      axios.interceptors.response.use(
+        function (response) {
+          // 對響應數據做些什麼
+          console.log('Response Interceptor:', response);
+          return response;
+        },
+        function (error) {
+          // 處理響應錯誤
+          return Promise.reject(error);
+        },
+      );
+
+      document.getElementById('fetchData').addEventListener('click', () => {
+        // 當按鈕被點擊時執行函數
+        axios
+          .get('https://jsonplaceholder.typicode.com/posts') // 發送GET請求到指定的URL
+          .then((response) => {
+            document.getElementById('output').textContent = JSON.stringify(
+              response.data,
+              null,
+              2,
+            ); // 將數據格式化並顯示在頁面上
+          })
+          .catch((error) => {
+            console.error('Error:', error); // 如果發生錯誤，將錯誤信息顯示在控制台
+          });
+      });
+    </script>
+  </body>
+</html>
